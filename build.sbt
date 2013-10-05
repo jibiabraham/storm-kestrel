@@ -13,8 +13,9 @@ libraryDependencies ++=Seq(
     "com.twitter" %% "finagle-kestrel" % "6.6.2",
     "com.twitter" %% "finagle-thrift" % "6.6.2",
 	"com.twitter.common.zookeeper" % "server-set" % "1.0.42",
-	"storm" % "storm" % "0.9.0-wip4-SNAPSHOT",
-	"storm" % "storm-kestrel" % "0.9.0-wip5-multischeme"
+	"storm" % "storm" % "0.9.0-wip15",
+	"storm" % "storm-kestrel" % "0.9.0-wip5-multischeme",
+	"com.github.velvia" % "scala-storm_2.9.1" % "0.2.2"
 )
 
 com.twitter.scrooge.ScroogeSBT.newSettings
