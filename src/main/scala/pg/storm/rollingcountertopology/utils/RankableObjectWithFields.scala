@@ -5,6 +5,20 @@ import java.io.Serializable
 import collection.JavaConverters._
 
 
+object RankableObjectWithFields {
+	def from(tuple: Tuple): RankableObjectWithFields = {
+		val otherFields: List[Any] = tuple.getValues.asScala.toList
+		val rankable = otherFields.head
+		val remaining = otherFields.tail
+		val count: Long = remaining.head match {
+			case None => 0
+			case Some(number: Long) => number 
+		}
+		val trackableFields = remaining.tail
+		new RankableObjectWithFields(rankable, count, trackableFields)
+	}
+}
+
 class RankableObjectWithFields(rankable: Any, rankableCount: Long, otherFields: Any*) extends Serializable with Rankable {
 	private var obj: Any = _
 	private var count: Long = _
@@ -21,18 +35,6 @@ class RankableObjectWithFields(rankable: Any, rankableCount: Long, otherFields: 
 		this.obj = rankable;
 		this.count = rankableCount;
 		this.fields = otherFields.toList
-	}
-
-	def from(tuple: Tuple): RankableObjectWithFields = {
-		val otherFields: List[Any] = tuple.getValues.asScala.toList
-		val rankable = otherFields.head
-		val remaining = otherFields.tail
-		val count: Long = remaining.head match {
-			case None => 0
-			case Some(number: Long) => number 
-		}
-		val trackableFields = remaining.tail
-		new RankableObjectWithFields(rankable, count, trackableFields)
 	}
 
 	def getObject: Any = {
